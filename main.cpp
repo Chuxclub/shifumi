@@ -1,20 +1,10 @@
 #include <iostream>
 #include "std_lib_facilities.h"
+#include "termcolor.hpp"
+#include "player_vs_ai_module.h"
 
-char ai_choice();
-
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-}
-
-char ai_choice()
+int main()
 {
-    vector<char> possible_outcomes = {'p', 'f', 'c'};
-    possible_outcomes = {'p', 'f', 'c'};
-
-    srand((unsigned int) time(nullptr));
-    constexpr int NUMBER_POSSIBLE_OUTCOMES = 3;
-    int x = rand()%NUMBER_POSSIBLE_OUTCOMES;
-
+    player_vs_ai_mode();
+    return 0;
 }
