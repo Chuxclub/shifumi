@@ -19,6 +19,8 @@ void player_vs_ai_mode();
 
 char ai_choice();
 
+
+bool user_exit_test(char choice);
 void user_input_test(char &choice);
 
 

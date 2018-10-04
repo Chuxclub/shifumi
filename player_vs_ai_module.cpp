@@ -15,15 +15,26 @@ void player_vs_ai_mode()
     int rounds = 0, player_won_rounds = 0, computer_won_rounds = 0;
 
     //Assuming the player wants to play at least once, loop can be broken
-    //after having won or lost a battle and chosen to exit
+    //after having won or lost a battle and/or chosen to exit
+
     while (new_game == 'y')
     {
         char computer_choice = ai_choice();
 
-        std::cout << "\n\n";
+        std::cout << "\n\n\t";
         std::cout << "Your choice, human: ";
         std::cin >> choice;
-        user_input_test(choice);
+
+
+            /* ~~~~~~~~~~~~~~~ User input tests ~~~~~~~~~~~~~~~ */
+
+            if (user_exit_test(choice))
+                break;
+
+            user_input_test(choice);
+
+            /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 
         player_won_rounds += user_win_count(choice, computer_choice);
         computer_won_rounds += computer_win_count(choice, computer_choice);
@@ -41,7 +52,7 @@ void player_vs_ai_mode()
             //Else, determines winner of the battle
             print_battle_winner(player_won_rounds, computer_won_rounds);
 
-            std::cout << "\n\n";
+            std::cout << "\n\n\t";
             std::cout << "Do you want a new game? Press 'y' to continue, any key to exit: ";
             std::cin >> new_game;
 
@@ -80,20 +91,38 @@ char ai_choice()
     return computer_choice;
 }
 
+
+
+
+
+//Checks if user wants to exit now (dedicated char is '0')
+bool user_exit_test(char choice)
+{
+    if (choice == '0')
+        return true;
+
+    else
+        return false;
+}
+
 //Checks if user input is valid, valid inputs are: 'p', 's' or 'c', enters a loop
 //if input is not valid
 void user_input_test(char &choice)
 {
     while (choice != 'p' && choice != 's' && choice != 'c')
     {
-        std::cout << termcolor::red << "\n" << "Wrong input!" << termcolor::reset;
+        std::cout << termcolor::red << "\n\t" << "Wrong input!" << termcolor::reset;
         cin.clear();
         cin.ignore(1000, '\n');
-        std::cout << "\n" << "Input a valid character ('p', 's' or 'c') : ";
+        std::cout << "\n\t" << "Input a valid character ('p', 's' or 'c') : ";
         std::cin >> choice;
         std::cout << "\n";
     }
 }
+
+
+
+
 
 //Checks if player won the round, if yes, adds +1 to the number of won rounds
 //If no, adds nothing
@@ -140,29 +169,33 @@ int computer_win_count(char choice, char computer_choice)
 void print_winner (char choice, char computer_choice)
 {
     if (choice == computer_choice)
-        std::cout << "Draw!";
+        std::cout << "\tDraw!";
 
     else if (choice == 's' && computer_choice == 'c')
-        std::cout << "Stone against cisors: " << termcolor::green << "you win !" << termcolor::reset;
+        std::cout << "\tStone against cisors: " << termcolor::green << "you win !" << termcolor::reset;
 
     else if (choice == 'c' && computer_choice == 's')
-        std::cout << "Cisors against stone: " << termcolor::red << "you lose !" << termcolor::reset;
+        std::cout << "\tCisors against stone: " << termcolor::red << "you lose !" << termcolor::reset;
 
     else if (choice == 'c' && computer_choice == 'p')
-        std::cout << "Cisors against paper: " << termcolor::green << "you win !" << termcolor::reset;
+        std::cout << "\tCisors against paper: " << termcolor::green << "you win !" << termcolor::reset;
 
     else if (choice == 'p' && computer_choice == 'c')
-        std::cout << "Paper against cisors: " << termcolor::red << "you lose !" << termcolor::reset;
+        std::cout << "\tPaper against cisors: " << termcolor::red << "you lose !" << termcolor::reset;
 
     else if (choice == 'p' && computer_choice == 's')
-        std::cout << "Paper against stone: " << termcolor::green << "you win !" << termcolor::reset;
+        std::cout << "\tPaper against stone: " << termcolor::green << "you win !" << termcolor::reset;
 
     else if (choice == 's' && computer_choice == 'p')
-        std::cout << "Stone against paper: " << termcolor::red << "you lose !" << termcolor::reset;
+        std::cout << "\tStone against paper: " << termcolor::red << "you lose !" << termcolor::reset;
 
     else
-        std::cout << termcolor::red <<"Wrong input!" << termcolor::reset;
+        std::cout << termcolor::red <<"\tWrong input!" << termcolor::reset;
 }
+
+
+
+
 
 //If there's a draw after the third round, enters a loop until someone wins
 //Hence to exit the loop, won rounds between the player and ai must be different
@@ -172,7 +205,7 @@ void deathmatch (int &player_won_rounds, int &computer_won_rounds, char &choice,
     {
         computer_choice = ai_choice();
 
-        std::cout << "\n\n";
+        std::cout << "\n\n\t";
         std::cout << "Last chance, human: ";
         std::cin >> choice;
 
@@ -189,9 +222,9 @@ void deathmatch (int &player_won_rounds, int &computer_won_rounds, char &choice,
 void print_battle_winner(int player_won_rounds, int computer_won_rounds)
 {
     if (player_won_rounds < computer_won_rounds)
-        std::cout << "\n\n" << termcolor::red << "I won the game human..." << termcolor::reset;
+        std::cout << "\n\n\t" << termcolor::red << "I won the game human..." << termcolor::reset;
     else
-        std::cout << "\n\n" << termcolor::green << "How is it even possible!" << termcolor::reset;
+        std::cout << "\n\n\t" << termcolor::green << "How is it even possible!" << termcolor::reset;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
