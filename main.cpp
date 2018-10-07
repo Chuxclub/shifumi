@@ -8,12 +8,13 @@ int main()
 {
     char user_choice = ' ';
 
+    std::cout << "\n";
     MainTitleSeparator(24, "WELCOME TO SHIFUMI BATTLE!", "green");
     std::cout << "\n";
 
     do
     {
-        std::cout << "\n";
+        std::cout << "\n\t";
         std::cout << "Want to challenge me, human (Press 'y' for yes, any key to exit) ? ";
         std::cin >> user_choice;
 
@@ -31,6 +32,7 @@ int main()
 
     std::cout << "\n";
     MainSeparator(74);
+    std::cout << "\n";
 
     return 0;
 }
